@@ -1,16 +1,11 @@
 import React from 'react'
 
 export default class PostForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      message: '',
-    }
-    this.onSubmit = this.onSubmit.bind(this)
-    this.onMessageChange = this.onMessageChange.bind(this)
+  state = {
+    message: '',
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault()
 
     const { message } = this.state
@@ -30,7 +25,7 @@ export default class PostForm extends React.Component {
     })
   }
 
-  onMessageChange(e) {
+  onMessageChange = (e) => {
     this.setState({ message: e.target.value })
   }
 

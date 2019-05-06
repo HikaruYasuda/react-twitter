@@ -3,18 +3,14 @@ import Tweet from './Tweet'
 import PostForm from './PostForm'
 
 export default class Timeline extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      tweets: [
-        { message: 'Reactで作る', ts: Date.now() - 30000 },
-        { message: 'Hello world!', ts: Date.now() - 50000 },
-      ],
-    }
-    this.onPostTweet = this.onPostTweet.bind(this)
+  state = {
+    tweets: [
+      { message: 'Reactで作る', ts: Date.now() - 30000 },
+      { message: 'Hello world!', ts: Date.now() - 50000 },
+    ],
   }
 
-  onPostTweet(tweet) {
+  onPostTweet = (tweet) => {
     this.setState({ tweets: [ tweet, ...this.state.tweets ] })
   }
 
