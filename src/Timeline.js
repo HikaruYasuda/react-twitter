@@ -19,6 +19,16 @@ export default class Timeline extends React.Component {
       <section className="timeline">
         <h2>Home</h2>
 
+        <div className="new-post">
+          <button type="button" onClick={ () => {
+            const tweet = {
+              message: 'メッセージ',
+              ts: Date.now(),
+            }
+            this.setState({ tweets: [ tweet, ...tweets ] })
+          } }>追加</button>
+        </div>
+
         { tweets.map(tweet => (
           <Tweet tweet={ tweet } key={ tweet.ts } />
         )) }
