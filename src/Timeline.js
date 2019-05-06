@@ -11,6 +11,11 @@ export default class Timeline extends React.Component {
         { message: 'Hello world!', ts: Date.now() - 50000 },
       ],
     }
+    this.onPostTweet = this.onPostTweet.bind(this)
+  }
+
+  onPostTweet(tweet) {
+    this.setState({ tweets: [ tweet, ...this.state.tweets ] })
   }
 
   render() {
@@ -21,9 +26,7 @@ export default class Timeline extends React.Component {
         <h2>Home</h2>
 
         <section className="new-post">
-          <PostForm onSubmit={ tweet => {
-            this.setState({ tweets: [ tweet, ...tweets ] })
-          }} />
+          <PostForm onSubmit={ this.onPostTweet } />
         </section>
 
         { tweets.map(tweet => (
