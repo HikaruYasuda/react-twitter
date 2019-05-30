@@ -66,11 +66,15 @@ class App extends React.Component {
   componentDidMount() {
     // アローFunction
     // 関数が定義されているブロックのthisが使える
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState({
         time: new Date().toLocaleString()
       })
     }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId)
   }
 
   render() {
