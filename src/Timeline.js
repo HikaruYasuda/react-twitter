@@ -14,27 +14,17 @@ function saveTweets(tweets) {
 
 class Timeline extends React.Component {
   handleSubmit = (newTweet) => {
-    const { tweets } = this.state
-
-    const newTweets = [newTweet, ...tweets]
-
-    this.setState({
-      tweets: newTweets,
-    })
-
-    saveTweets(newTweets)
+    const action = {type: 'ADD_TWEET', payload: newTweet}
+    this.props.dispatch(action)
   }
 
   handleDelete = (tweet) => {
-    // 削除したい項目を除いた余った項目リスト
-    const newTweets = this.state.tweets
-      .filter(o => o.ts !== tweet.ts)
+    const action = {type: 'DELETE_TWEET', payload: tweet}
+    this.props.dispatch(action)
+  }
 
-    this.setState({
-      tweets: newTweets
-    })
-
-    saveTweets(newTweets)
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    saveTweets(this.props.tweets)
   }
 
   render() {

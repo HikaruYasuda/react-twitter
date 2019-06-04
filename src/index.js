@@ -24,12 +24,25 @@ function loadTweets() {
 
 const initialState = {
   user_name: 'やすだ',
-  tweets: [
-    {message: 'テスト', ts: new Date()}
-  ],
+  tweets: loadTweets(),
 }
 const reducer = (state, action) => {
-  return state
+  console.log({ state, action })
+  switch (action.type) {
+    case 'ADD_TWEET':
+      return {
+        ...state,
+        tweets: [action.payload, ...state.tweets],
+      }
+    case 'DELETE_TWEET':
+      return {
+        ...state,
+        tweets: state.tweets
+          .filter(o => o.ts !== action.payload.ts)
+      }
+    default:
+      return state
+  }
 }
 const store = createStore(reducer, initialState)
 
