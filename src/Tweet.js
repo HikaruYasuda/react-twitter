@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Item extends React.Component {
+export default class Tweet extends React.Component {
 
   handleClickDelete = () => {
     this.props.onDelete(this.props.item)
