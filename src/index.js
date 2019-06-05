@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux'
+import { compose, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 /**
@@ -27,7 +27,6 @@ const initialState = {
   tweets: loadTweets(),
 }
 const reducer = (state, action) => {
-  console.log({ state, action })
   switch (action.type) {
     case 'ADD_TWEET':
       return {
@@ -44,7 +43,11 @@ const reducer = (state, action) => {
       return state
   }
 }
-const store = createStore(reducer, initialState)
+const store = createStore(
+  reducer,
+  initialState,
+  compose(process.env.NODE_ENV === 'development' && window.devToolsExtension ? window.devToolsExtension() : f => f)
+)
 
 ReactDOM.render((
   <Provider store={store}>
