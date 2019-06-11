@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Tweet from './Tweet'
 import PostForm from './PostForm'
 import { connect } from 'react-redux'

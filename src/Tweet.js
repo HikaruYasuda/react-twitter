@@ -10,11 +10,21 @@ export default class Tweet extends React.Component {
     const { item } = this.props
     return (
       <div className="tweet">
-        <time>{ item.ts.toLocaleString() }</time>
-        <br/>
-        { item.message }
-        <br/>
-        <button type="button" onClick={this.handleClickDelete}>削除</button>
+        <div className="tweet-avatar">
+          <span role="img">{ item.avatar || '😄' }</span>
+        </div>
+        <div className="tweet-body">
+          <h5>
+            <span>{ item.username || 'No Name' }</span>
+            <time className="text-muted">・{ item.ts.toLocaleString() }</time>
+          </h5>
+          <p>{ item.message }</p>
+          <button
+            type="button"
+            className="btn btn-sm btn-danger"
+            onClick={this.handleClickDelete}
+          >削除</button>
+        </div>
       </div>
     )
   }

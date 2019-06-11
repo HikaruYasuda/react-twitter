@@ -28,9 +28,16 @@ export default class PostForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <textarea onChange={this.handleEdit} value={this.state.text}/>
-        <button type="button" onClick={this.handleClick}>投稿</button>
+      <div className="new-post">
+        <textarea
+          className="form-control"
+          onChange={this.handleEdit}
+          value={this.state.text}/>
+        <button
+          type="button"
+          className="btn btn-sm btn-primary"
+          onClick={this.handleClick}
+        >投稿</button>
       </div>
     )
   }
