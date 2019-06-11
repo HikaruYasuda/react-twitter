@@ -1,4 +1,4 @@
-import logo from './logo.svg'
+import logo from '../img/logo.svg'
 import React from 'react'
 import { connect } from 'react-redux'
 
