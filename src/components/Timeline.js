@@ -2,6 +2,7 @@ import React from 'react';
 import Tweet from './Tweet'
 import PostForm from './PostForm'
 import { connect } from 'react-redux'
+import { deleteTweet } from '../actions'
 
 /**
  * Save tweets to LocalStorage.
@@ -12,16 +13,6 @@ function saveTweets(tweets) {
 }
 
 class Timeline extends React.Component {
-  handleSubmit = (newTweet) => {
-    const action = {type: 'ADD_TWEET', payload: newTweet}
-    this.props.dispatch(action)
-  }
-
-  handleDelete = (tweet) => {
-    const action = {type: 'DELETE_TWEET', payload: tweet}
-    this.props.dispatch(action)
-  }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     saveTweets(this.props.tweets)
   }
@@ -31,13 +22,13 @@ class Timeline extends React.Component {
       <div className="timeline">
         <h2>Home</h2>
 
-        <PostForm onSubmit={this.handleSubmit} />
+        <PostForm/>
 
         { this.props.tweets.map((tweet) => (
           <Tweet
             key={tweet.ts}
             item={tweet}
-            onDelete={this.handleDelete}
+            onDelete={this.props.deleteTweet}
           />
         )) }
       </div>
@@ -51,5 +42,12 @@ const mapState = (state) => {
     tweets: state.tweets
   }
 }
+const mapDispatch = (dispatch) => {
+  return {
+    deleteTweet: (tweet) => {
+      dispatch(deleteTweet(tweet))
+    }
+  }
+}
 
-export default connect(mapState)(Timeline)
+export default connect(mapState, mapDispatch)(Timeline)

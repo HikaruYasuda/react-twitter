@@ -1,8 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { addTweet } from '../actions'
+const emojiList = [
+  '😀',
+  '🦐',
+  '🐬',
+  '🐧',
+  '🐣',
+]
 
-export default class PostForm extends React.Component {
+class PostForm extends React.Component {
   state = {
-    text: ''
+    text: '',
+    avatar: emojiList[0],
+    emojiList,
   }
 
   handleEdit = (e) => {
@@ -11,15 +22,22 @@ export default class PostForm extends React.Component {
     })
   }
 
+  handleChangeAvatar = (e) => {
+    this.setState({
+      avatar: e.target.value
+    })
+  }
+
   handleClick = () => {
-    const { text } = this.state
+    const { text, avatar } = this.state
 
     const newItem = {
       ts: new Date(),
-      message: text
+      message: text,
+      avatar,
     }
 
-    this.props.onSubmit(newItem)
+    this.props.addTweet(newItem)
 
     this.setState({
       text: ''
@@ -33,12 +51,34 @@ export default class PostForm extends React.Component {
           className="form-control"
           onChange={this.handleEdit}
           value={this.state.text}/>
-        <button
-          type="button"
-          className="btn btn-sm btn-primary"
-          onClick={this.handleClick}
-        >投稿</button>
+        <div className="form-inline">
+          <button
+            type="button"
+            className="btn btn-sm btn-primary"
+            onClick={this.handleClick}
+          >投稿</button>
+          <select
+            className="form-control form-control-sm"
+            onChange={this.handleChangeAvatar}
+            value={this.avatar}
+          >
+            {this.state.emojiList.map(emoji => (
+              <option value={emoji}>{emoji}</option>
+            ))}
+          </select>
+        </div>
       </div>
     )
   }
 }
+
+const mapState = null
+const mapDispatch = (dispatch) => {
+  return {
+    addTweet: (newTweet) => {
+      dispatch(addTweet(newTweet))
+    },
+  }
+}
+
+export default connect(mapState, mapDispatch)(PostForm)
