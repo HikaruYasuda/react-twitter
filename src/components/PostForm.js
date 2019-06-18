@@ -1,56 +1,42 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTweet } from '../actions'
-const emojiList = [
-  '😀',
-  '🦐',
-  '🐬',
-  '🐧',
-  '🐣',
-]
+import { addTweet, editValue, reset } from '../actions'
 
 class PostForm extends React.Component {
-  state = {
-    text: '',
-    avatar: emojiList[0],
-    emojiList,
-  }
-
   handleEdit = (e) => {
-    this.setState({
-      text: e.target.value,
-    })
+    this.props.editValue('text', e.target.value)
   }
 
   handleChangeAvatar = (e) => {
-    this.setState({
-      avatar: e.target.value
-    })
+    this.props.editValue('avatar', e.target.value)
   }
 
   handleClick = () => {
-    const { text, avatar } = this.state
+    const { emojiList, form } = this.props
+    const { text, avatar } = form
 
     const newItem = {
       ts: new Date(),
       message: text,
-      avatar,
+      avatar: avatar || emojiList[0],
     }
 
     this.props.addTweet(newItem)
 
-    this.setState({
-      text: ''
-    })
+    this.props.reset()
   }
 
   render() {
+    const { form, emojiList } = this.props
+    const { text, avatar } = form
+
     return (
       <div className="new-post">
         <textarea
           className="form-control"
           onChange={this.handleEdit}
-          value={this.state.text}/>
+          value={text}
+        />
         <div className="form-inline">
           <button
             type="button"
@@ -60,10 +46,10 @@ class PostForm extends React.Component {
           <select
             className="form-control form-control-sm"
             onChange={this.handleChangeAvatar}
-            value={this.avatar}
+            value={avatar || emojiList[0]}
           >
-            {this.state.emojiList.map(emoji => (
-              <option value={emoji}>{emoji}</option>
+            {emojiList.map(emoji => (
+              <option value={emoji} key={emoji}>{emoji}</option>
             ))}
           </select>
         </div>
@@ -72,11 +58,22 @@ class PostForm extends React.Component {
   }
 }
 
-const mapState = null
+const mapState = (state) => {
+  return {
+    emojiList: state.emojiList,
+    form: state.form
+  }
+}
 const mapDispatch = (dispatch) => {
   return {
     addTweet: (newTweet) => {
       dispatch(addTweet(newTweet))
+    },
+    editValue: (name, value) => {
+      dispatch(editValue(name, value))
+    },
+    reset: () => {
+      dispatch(reset())
     },
   }
 }

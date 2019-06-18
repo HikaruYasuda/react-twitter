@@ -10,7 +10,7 @@ import reducer from './reducer'
 
 const store = createStore(
   reducer,
-  compose(process.env.NODE_ENV === 'development' && window.devToolsExtension ? window.devToolsExtension() : f => f)
+  compose(process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f)
 )
 
 ReactDOM.render((

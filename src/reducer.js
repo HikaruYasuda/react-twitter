@@ -1,4 +1,4 @@
-import { ADD_TWEET, DELETE_TWEET } from './actions'
+import { ADD_TWEET, DELETE_TWEET, EDIT_VALUE, RESET } from './actions'
 
 /**
  * Load tweets from LocalStorage.
@@ -16,9 +16,22 @@ function loadTweets() {
   }
 }
 
+const emojiList = [
+  '😀',
+  '🦐',
+  '🐬',
+  '🐧',
+  '🐣',
+]
+
 const initialState = {
   user_name: 'やすだ',
   tweets: loadTweets(),
+  emojiList,
+  form: {
+    text: '',
+    avatar: null,
+  },
 }
 
 export default (state = initialState, action) => {
@@ -33,6 +46,22 @@ export default (state = initialState, action) => {
         ...state,
         tweets: state.tweets
           .filter(o => o.ts !== action.payload.ts)
+      }
+    case EDIT_VALUE:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [action.name]: action.value,
+        },
+      }
+    case RESET:
+      return {
+        ...state,
+        form: {
+          text: '',
+          avatar: null,
+        }
       }
     default:
       return state
