@@ -1,4 +1,5 @@
 import { ADD_TWEET, DELETE_TWEET, EDIT_VALUE, RESET } from './actions'
+import { combineReducers } from 'redux'
 
 /**
  * Load tweets from LocalStorage.
@@ -16,7 +17,7 @@ function loadTweets() {
   }
 }
 
-const emojiList = [
+const INITIAL_EMOJI_LIST = [
   '😀',
   '🦐',
   '🐬',
@@ -24,46 +25,49 @@ const emojiList = [
   '🐣',
 ]
 
-const initialState = {
-  user_name: 'やすだ',
-  tweets: loadTweets(),
-  emojiList,
-  form: {
-    text: '',
-    avatar: null,
-  },
+const user = (state = { name: 'やすだ' }, action) => {
+  return state
 }
 
-export default (state = initialState, action) => {
+const emojiList = (state = INITIAL_EMOJI_LIST, action) => {
+  return state
+}
+
+const initialTweets = loadTweets()
+const tweets = (state = initialTweets, action) => {
   switch (action.type) {
     case ADD_TWEET:
-      return {
-        ...state,
-        tweets: [action.payload, ...state.tweets],
-      }
+      return [action.payload, ...state]
     case DELETE_TWEET:
-      return {
-        ...state,
-        tweets: state.tweets
-          .filter(o => o.ts !== action.payload.ts)
-      }
+      return state.filter(o => o.ts !== action.payload.ts)
+    default:
+      return state
+  }
+}
+
+const form = (state = {
+  text: '',
+  avatar: null,
+}, action) => {
+  switch (action.type) {
     case EDIT_VALUE:
       return {
         ...state,
-        form: {
-          ...state.form,
-          [action.name]: action.value,
-        },
+        [action.name]: action.value,
       }
     case RESET:
       return {
-        ...state,
-        form: {
-          text: '',
-          avatar: null,
-        }
+        text: '',
+        avatar: null,
       }
     default:
       return state
   }
 }
+
+export default combineReducers({
+  user,
+  tweets,
+  emojiList,
+  form,
+})

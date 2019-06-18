@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTweet, editValue, reset } from '../actions'
 
-class PostForm extends React.Component {
+export class PostForm extends React.Component {
   handleEdit = (e) => {
     this.props.editValue('text', e.target.value)
   }
