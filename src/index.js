@@ -6,10 +6,10 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { compose, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './reducer'
+import reducers from './reducers'
 
 const store = createStore(
-  reducer,
+  reducers,
   compose(process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f)
 )
 
