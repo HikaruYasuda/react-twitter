@@ -1,6 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class Tweet extends React.Component {
+  static propTypes = {
+    item: PropTypes.shape({
+      message: PropTypes.string.isRequired,
+      avatar: PropTypes.string,
+      username: PropTypes.string,
+      ts: PropTypes.any.isRequired,
+    }).isRequired,
+    onDelete: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    onDelete: () => {},
+  }
 
   handleClickDelete = () => {
     this.props.onDelete(this.props.item)

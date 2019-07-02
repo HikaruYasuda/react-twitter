@@ -61,20 +61,14 @@ export class PostForm extends React.Component {
 const mapState = (state) => {
   return {
     emojiList: state.emojiList,
-    form: state.form
+    form: state.form,
   }
 }
 const mapDispatch = (dispatch) => {
   return {
-    addTweet: (newTweet) => {
-      dispatch(addTweet(newTweet))
-    },
-    editValue: (name, value) => {
-      dispatch(editValue(name, value))
-    },
-    reset: () => {
-      dispatch(reset())
-    },
+    addTweet: (newTweet) => dispatch(addTweet(newTweet)),
+    editValue: (name, value) => dispatch(editValue(name, value)),
+    reset: () => dispatch(reset()),
   }
 }
 

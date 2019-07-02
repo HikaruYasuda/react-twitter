@@ -18,17 +18,18 @@ class Timeline extends React.Component {
   }
 
   render() {
+    const { tweets, deleteTweet } = this.props
     return (
       <div className="timeline">
         <h2>Home</h2>
 
         <PostForm/>
 
-        { this.props.tweets.map((tweet) => (
+        { tweets.map((tweet) => (
           <Tweet
             key={tweet.ts}
             item={tweet}
-            onDelete={this.props.deleteTweet}
+            onDelete={deleteTweet}
           />
         )) }
       </div>
@@ -39,14 +40,12 @@ class Timeline extends React.Component {
 // Storeのstate(状態ツリー)の値をコンポーネントで使う項目としてマッピングする
 const mapState = (state) => {
   return {
-    tweets: state.tweets
+    tweets: state.tweets,
   }
 }
 const mapDispatch = (dispatch) => {
   return {
-    deleteTweet: (tweet) => {
-      dispatch(deleteTweet(tweet))
-    }
+    deleteTweet: (tweet) => dispatch(deleteTweet(tweet)),
   }
 }
 
