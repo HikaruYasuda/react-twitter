@@ -11,8 +11,14 @@
   background-color: #282c34;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   color: white;
+  .btn-link {
+    color: white;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
 }
 
 .App-link {

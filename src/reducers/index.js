@@ -4,6 +4,7 @@ import emojiList from './emojiList'
 import tweets from './tweets'
 import form from './form'
 import profileModal from './profileModal'
+import qiita from './qiita'
 
 export default combineReducers({
   user,
@@ -11,4 +12,5 @@ export default combineReducers({
   tweets,
   form,
   profileModal,
+  qiita,
 })

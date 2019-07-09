@@ -1,22 +1,27 @@
-import React from 'react';
+import React from 'react'
 import Header from './Header'
-import './App.scss';
+import './App.scss'
 import 'rodal/lib/rodal.css'
-import Timeline from './Timeline'
 import ProfileModal from './ProfileModal'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Home from './Home'
+import QiitaLayout from './QiitaLayout'
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <Header/>
+      <Router>
+        <div className="App">
+          <Header/>
 
-        <main className="container">
-          <Timeline />
-        </main>
+          <Switch>
+            <Route exact path="/" component={ Home } />
+            <Route path="/qiita" component={ QiitaLayout } />
+          </Switch>
 
-        <ProfileModal/>
-      </div>
+          <ProfileModal/>
+        </div>
+      </Router>
     );
   }
 }
