@@ -25,7 +25,7 @@ export const deleteTweet = (tweet) => {
   return { type: DELETE_TWEET, payload: tweet }
 }
 
-export const editValue = (dispatch, name, value) => {
+export const editValue = (name, value) => {
   return { type: EDIT_VALUE, name, value }
 }
 
